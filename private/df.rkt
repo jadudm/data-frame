@@ -560,6 +560,9 @@
                (#:start index/c #:stop index/c)
                any/c))
  (df-add-series (-> data-frame? series? any/c))
+ ;; MCJ 2018-12-01 ADDED
+ (df-get-series (-> data-frame? string? series?))
+ 
  (df-del-series (-> data-frame? string? any/c))
  (df-add-derived (-> data-frame? string? (listof string?) mapfn/c any/c))
  (df-add-lazy (-> data-frame? string? (listof string?) mapfn/c any/c))

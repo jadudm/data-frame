@@ -51,7 +51,6 @@
    )
   #:mutable)
 
-
 ;; Check that the series C is sorted according to CMPFN, and raise an error if
 ;; it is not.
 (define (check-valid-sort c cmpfn)
@@ -140,7 +139,8 @@
                      #:capacity (capacity 10)
                      #:cmpfn (cmpfn #f)
                      #:na (na #f)
-                     #:contract (contractfn #f))
+                     #:contract (contractfn #f)
+                     )
   (define df
     (series
      name
@@ -150,6 +150,7 @@
      cmpfn
      na
      contractfn))
+  
   (when contractfn
     (check-valid-contract df contractfn))
   (when cmpfn
@@ -230,10 +231,10 @@
   (if (<= start stop)
       (begin
         (unless (<= beg s end)
-    (raise-range-error
+          (raise-range-error
            'in-series "vector1" "" start data 0 (- end beg)))
         (unless (<= beg e end)
-    (raise-range-error
+          (raise-range-error
            'in-series "vector2" "" stop data 0 (- end beg)))
         (unless (> step 0)
           (raise-argument-error 'step "positive" step)))
@@ -287,13 +288,15 @@
 
 ;;............................................................. provides ....
 
+(provide series)
 (provide/contract
  (make-series (->* (string?)
                    (#:data (or/c vector? #f)
                     #:capacity exact-nonnegative-integer?
                     #:cmpfn (or/c #f (-> any/c any/c boolean?))
                     #:na any/c
-                    #:contract (-> any/c boolean?))
+                    #:contract (-> any/c boolean?)
+                    )
                    series?))
  (series? (-> any/c boolean?))
  (series-na (-> series? any/c))
